@@ -1,0 +1,24 @@
+server:
+  port: 1111
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+      
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+      - id: BankApplication
+        uri: lb://BankApplication
+        predicates:
+        - Path=/BankApplication/**
+      - id: UPIPaymentApplication
+        uri: lb://UPIPaymentApplication
+        predicates:
+        - Path=/UPIPaymentApplication/**
